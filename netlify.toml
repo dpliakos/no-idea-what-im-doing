@@ -1,0 +1,29 @@
+[build]
+  base = ""
+  command = "sed -i \"s|not-configured|${DEPLOY_PRIME_URL}|g\" netlify.toml && npm run build"
+  publish="/build"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[context.production]
+
+  environment = {
+    REACT_APP_ENVIRONMENT = "https://google.com",
+    REACT_APP_CONFIGURABLE = "not-configured"
+  }
+
+[context.staging.environment]
+  environment = {
+    REACT_APP_ENVIRONMENT = "https://staging.google.com",
+    REACT_APP_CONFIGURABLE = "not-configured"
+  }
+
+[context.deploy-preview.environment]
+  environment = {
+    REACT_APP_ENVIRONMENT = "https://test.google.com",
+    REACT_APP_CONFIGURABLE = "not-configured"
+    
+  }
